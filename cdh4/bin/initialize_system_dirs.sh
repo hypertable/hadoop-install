@@ -1,0 +1,18 @@
+#!/bin/bash
+
+su -s /bin/bash hdfs -c "hadoop fs -chmod 777 /"
+su -s /bin/bash hdfs -c "hadoop fs -mkdir /tmp"
+su -s /bin/bash hdfs -c "hadoop fs -chmod -R 1777 /tmp"
+su -s /bin/bash hdfs -c "hadoop fs -mkdir /var"
+su -s /bin/bash hdfs -c "hadoop fs -mkdir /var/lib"
+su -s /bin/bash hdfs -c "hadoop fs -mkdir /var/lib/hadoop-hdfs"
+su -s /bin/bash hdfs -c "hadoop fs -mkdir /var/lib/hadoop-hdfs/cache"
+su -s /bin/bash hdfs -c "hadoop fs -mkdir /var/lib/hadoop-hdfs/cache/mapred"
+su -s /bin/bash hdfs -c "hadoop fs -mkdir /var/lib/hadoop-hdfs/cache/mapred/mapred"
+su -s /bin/bash hdfs -c "hadoop fs -mkdir /var/lib/hadoop-hdfs/cache/mapred/mapred/staging"
+su -s /bin/bash hdfs -c "hadoop fs -chmod 1777 /var/lib/hadoop-hdfs/cache/mapred/mapred/staging"
+su -s /bin/bash hdfs -c "hadoop fs -chown -R mapred /var/lib/hadoop-hdfs/cache/mapred"
+su -s /bin/bash hdfs -c "hadoop fs -mkdir /tmp/mapred/system"
+su -s /bin/bash hdfs -c "hadoop fs -chmod 755 /tmp/mapred/system"
+su -s /bin/bash hdfs -c "hadoop fs -chown mapred:hadoop /tmp/mapred/system"
+su -s /bin/bash hdfs -c "hadoop fs -lsr /"

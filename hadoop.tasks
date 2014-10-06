@@ -1,0 +1,249 @@
+
+# Install Hadoop package (${DISTRO}).
+task: install_package roles: source, master, slave {
+  ssh: {
+    yum -y update
+    ${SOURCE}/${DISTRO}/bin/install_package.sh
+  }
+}
+
+# Install Namenode and Jobtracker.
+task: install_services_master roles: master {
+  local dirs
+  for dir in "${DATA_DIRECTORIES[@]}"; do
+    dirs="${dirs} ${dir}"
+  done
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/install_services_master.sh ${dirs}
+  }
+}
+
+# Install Datanode and Tasktracker.
+task: install_services_slave roles: slave {
+  local dirs
+  for dir in "${DATA_DIRECTORIES[@]}"; do
+    dirs="${dirs} ${dir}"
+  done
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/install_services_slave.sh "${dirs}"
+  }
+}
+
+# Install client library.
+task: install_services_client roles: source, master, slave {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/install_services_client.sh
+  }
+}
+
+# Prepare for Hadoop configuration.
+task: configure_source roles: source {
+  if [ ! -d ${SOURCE}/${DISTRO}/conf.${ROLE_source} ]; then
+    echo "Configuration directory ${SOURCE}/${DISTRO}/conf.${ROLE_source} does not exist!"
+    exit 1
+  fi
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/configure_source.sh
+  }
+}
+
+# Configure master.
+task: configure_master roles: master {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/configure_master.sh ${SOURCE_MACHINE}
+  }
+}
+
+# Configure slave.
+task: configure_slave roles: slave {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/configure_slave.sh ${SOURCE_MACHINE}
+  }
+}
+
+# Configure Hadoop.
+task: configure {
+  configure_source
+  configure_master
+}
+
+# Create users and groups.
+task: create_users_and_groups {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/create_users_and_groups.sh
+  }
+}
+
+# Format the Namenode.
+task: format_namenode roles: master {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/format_namenode.sh
+  }
+}
+
+# Create system directories.
+task: initialize_system_dirs roles: master {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/initialize_system_dirs.sh
+  }
+}
+
+# Create HDFS user directories.
+task: create_hdfs_user_dirs roles: master {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/create_hdfs_user_dirs.sh "${USERS[@]}"
+  }
+}
+
+##
+##  STOP
+##
+
+# Stop Hadoop Jobtracker.
+task: stop_jobtracker roles: master {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/stop_jobtracker.sh
+  }
+}
+
+# Stop Hadoop Tasktrackers.
+task: stop_tasktracker roles: slave {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/stop_tasktracker.sh
+  }
+}
+
+# Stop Hadoop Namenode.
+task: stop_namenode roles: master {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/stop_namenode.sh
+  }
+}
+
+# Stop Hadoop Datanode.
+task: stop_datanode roles: slave {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/stop_datanode.sh
+  }
+}
+
+# Stop Hadoop.
+task: stop {
+  stop_jobtracker
+  stop_tasktracker
+  stop_datanode
+  stop_namenode
+}
+
+##
+##  CLEAN
+##
+
+# Clean Hadoop master state.
+task: clean_master roles: master {
+  local dirs
+  for dir in "${DATA_DIRECTORIES[@]}"; do
+    dirs="${dirs} ${dir}"
+  done
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/clean_master.sh ${dirs}
+  }
+}
+
+
+# Clean Hadoop slave state.
+task: clean_slave roles: slave {
+  local dirs
+  for dir in "${DATA_DIRECTORIES[@]}"; do
+    dirs="${dirs} ${dir}"
+  done
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/clean_slave.sh ${dirs}
+  }
+}
+
+
+##
+##  UNINSTALL
+##
+
+# Uninstall Hadoop package.
+task: uninstall_package roles: source, master, slave {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/uninstall_package.sh
+  }
+}
+
+
+# Uninstall Hadoop.
+# Uninstalls Hadoop distribution (${DISTRO})
+task: uninstall {
+  stop
+  uninstall_package
+  clean_slave
+  clean_master
+}
+
+##
+##  START
+##
+
+# Start Hadoop Namenode.
+task: start_namenode roles: master {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/start_namenode.sh
+  }
+}
+
+# Start Hadoop Datanode.
+task: start_datanode roles: slave {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/start_datanode.sh
+  }
+}
+
+
+# Start Hadoop Tasktracker.
+task: start_tasktracker roles: slave {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/start_tasktracker.sh
+  }
+}
+
+# Start Hadoop Jobtracker.
+task: start_jobtracker roles: master {
+  ssh: {
+    ${SOURCE}/${DISTRO}/bin/start_jobtracker.sh
+  }
+}
+
+
+# Start Hadoop.
+task: start {
+  start_namenode
+  start_datanode
+  start_tasktracker
+  start_jobtracker
+}
+
+
+# Install Hadoop (${DISTRO}).
+task: install {
+  install_package
+  install_services_master
+  install_services_slave
+  install_services_client
+  configure_source
+  configure_master
+  configure_slave
+  create_users_and_groups
+  format_namenode
+  start_namenode
+  start_datanode
+  initialize_system_dirs
+  start_tasktracker
+  start_jobtracker
+  create_hdfs_user_dirs
+  echo "Installation complete (${DISTRO})."
+}
+

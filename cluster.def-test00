@@ -1,0 +1,12 @@
+DISTRO=hdp2
+PACKAGE=hadoop-2.4.1
+SOURCE=/root/src/hadoop-install
+
+declare -a DATA_DIRECTORIES=("/data/1/hadoop" "/data/2/hadoop" "/data/3/hadoop" "/data/4/hadoop")
+declare -a USERS=("doug")
+
+role: source test00
+role: master test00
+role: slave test[02-07]
+
+include: "$SOURCE/hadoop.tasks"

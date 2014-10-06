@@ -43,21 +43,21 @@ task: configure_source roles: source {
     exit 1
   fi
   ssh: {
-    ${SOURCE}/${DISTRO}/bin/configure_source.sh
+    ${SOURCE}/${DISTRO}/bin/configure_source.sh ${ROLE_source}
   }
 }
 
 # Configure master.
 task: configure_master roles: master {
   ssh: {
-    ${SOURCE}/${DISTRO}/bin/configure_master.sh ${SOURCE_MACHINE}
+    ${SOURCE}/${DISTRO}/bin/configure_master.sh ${ROLE_source}
   }
 }
 
 # Configure slave.
 task: configure_slave roles: slave {
   ssh: {
-    ${SOURCE}/${DISTRO}/bin/configure_slave.sh ${SOURCE_MACHINE}
+    ${SOURCE}/${DISTRO}/bin/configure_slave.sh ${ROLE_source}
   }
 }
 
@@ -65,6 +65,7 @@ task: configure_slave roles: slave {
 task: configure {
   configure_source
   configure_master
+  configure_slave
 }
 
 # Create users and groups.

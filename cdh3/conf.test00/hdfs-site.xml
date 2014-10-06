@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+
+<property>
+  <name>dfs.datanode.failed.volumes.tolerated</name>
+  <value>1</value>
+</property>
+
+<property>
+  <name>fs.hdfs.impl</name>
+  <value>org.apache.hadoop.hdfs.DistributedFileSystem</value>
+</property>
+
+<property>
+  <name>dfs.name.dir</name>
+  <value>/data/1/hadoop/dfs/nn,/data/2/hadoop/dfs/nn,/data/3/hadoop/dfs/nn,/data/4/hadoop/dfs/nn</value>
+</property>
+
+<property>
+  <name>dfs.data.dir</name>
+  <value>/data/1/hadoop/dfs/dn,/data/2/hadoop/dfs/dn,/data/3/hadoop/dfs/dn,/data/4/hadoop/dfs/dn</value>
+</property>
+
+<property>
+  <name>dfs.namenode.handler.count</name>
+  <value>20</value>
+</property>
+
+<property>
+  <name>dfs.datanode.max.xcievers</name>
+  <value>8192</value>
+</property>
+
+<property>
+  <name>dfs.client.read.shortcircuit</name>
+  <value>true</value>
+</property>
+
+</configuration>

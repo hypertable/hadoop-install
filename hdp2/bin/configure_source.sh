@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -eq 0 ] ; then
-    echo "usage: configure_server.sh <source_machine>"
+    echo "usage: configure_source.sh <source_machine>"
     exit 0
 fi
 

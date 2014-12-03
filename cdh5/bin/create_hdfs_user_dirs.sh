@@ -6,7 +6,7 @@ if [ $# -eq 0 ] ; then
 fi
 
 while [ $# -gt 0 ] ; do
-  su -s /bin/bash hdfs -c "hadoop fs -mkdir /user/$1"
+  su -s /bin/bash hdfs -c "hadoop fs -mkdir -p /user/$1"
   su -s /bin/bash hdfs -c "hadoop fs -chown $1 /user/$1"
   shift
 done

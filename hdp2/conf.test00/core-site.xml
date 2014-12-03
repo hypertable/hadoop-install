@@ -21,7 +21,7 @@
 
   <property>
     <name>fs.defaultFS</name>
-    <value>hdfs://test00.admin.hypertable.com:9000</value>
+    <value>hdfs://test01.admin.hypertable.com:9000</value>
   </property>
 
   <property>

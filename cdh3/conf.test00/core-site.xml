@@ -7,7 +7,7 @@
 
 <property>
   <name>fs.default.name</name>
-  <value>hdfs://test00:9000</value>
+  <value>hdfs://test01:9000</value>
 </property>
 <property>
   <name>fs.hdfs.impl</name>

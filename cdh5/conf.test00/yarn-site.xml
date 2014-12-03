@@ -21,7 +21,7 @@
 
   <property>
     <name>yarn.resourcemanager.hostname</name>
-    <value>test00.admin.hypertable.com</value>
+    <value>test01.admin.hypertable.com</value>
   </property>
 
   <property>

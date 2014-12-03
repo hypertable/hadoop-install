@@ -2,7 +2,6 @@
 # Install Hadoop package (${DISTRO}).
 task: install_package roles: source, master, slave {
   ssh: {
-    yum -y update
     ${SOURCE}/${DISTRO}/bin/install_package.sh
   }
 }

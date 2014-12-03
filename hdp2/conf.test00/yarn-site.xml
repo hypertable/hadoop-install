@@ -21,7 +21,7 @@
 
   <property>
     <name>yarn.resourcemanager.hostname</name>
-    <value>test00</value>
+    <value>test01</value>
     <description>The hostname of the RM.</description>
   </property>
 
@@ -32,22 +32,22 @@
 
   <property>
     <name>yarn.resourcemanager.resource-tracker.address</name>
-    <value>test00.admin.hypertable.com:8025</value>
+    <value>test01.admin.hypertable.com:8025</value>
   </property>
 
   <property>
     <name>yarn.resourcemanager.scheduler.address</name>
-    <value>test00.admin.hypertable.com:8030</value>
+    <value>test01.admin.hypertable.com:8030</value>
   </property>
 ￼￼￼
   <property>
     <name>yarn.resourcemanager.address</name>
-    <value>test00.admin.hypertable.com:8050</value>
+    <value>test01.admin.hypertable.com:8050</value>
   </property>
 
   <property>
     <name>yarn.resourcemanager.admin.address</name>
-    <value>test00.admin.hypertable.com:8141</value>
+    <value>test01.admin.hypertable.com:8141</value>
   </property>
 
   <property>
@@ -62,13 +62,13 @@
 
   <property>
     <name>yarn.log.server.url</name>
-    <value>http://test00.admin.hypertable.com:19888/jobhistory/logs/</value>
+    <value>http://test01.admin.hypertable.com:19888/jobhistory/logs/</value>
     <description>URL for job history server</description>
   </property>
 
   <property>
     <name>yarn.resourcemanager.webapp.address</name>
-    <value>test00.admin.hypertable.com:8088</value>
+    <value>test01.admin.hypertable.com:8088</value>
     <description>URL for job history server</description>
   </property>
 

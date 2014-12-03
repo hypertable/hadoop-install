@@ -21,7 +21,7 @@
 
   <property>
     <name>mapred.job.tracker</name>
-    <value>test00:9001</value>
+    <value>test01:9001</value>
   </property>
 
   <property>

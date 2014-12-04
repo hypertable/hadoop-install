@@ -22,3 +22,16 @@ chmod 700 ${DATANODE_DIRS}
 chown -R hdfs:hdfs ${DATANODE_DIRS}
 
 yum -y install hadoop-yarn-nodemanager hadoop-hdfs-datanode hadoop-mapreduce
+
+mkdir -p /usr/lib/hadoop/share/hadoop
+cd /usr/lib/hadoop/share/hadoop/
+ln -s /usr/lib/hadoop common
+mkdir -p /usr/lib/hadoop-hdfs/share/hadoop
+cd /usr/lib/hadoop-hdfs/share/hadoop
+ln -s /usr/lib/hadoop-hdfs hdfs
+mkdir -p /usr/lib/hadoop-yarn/share/hadoop
+cd /usr/lib/hadoop-yarn/share/hadoop
+ln -s /usr/lib/hadoop-yarn yarn
+mkdir -p /usr/lib/hadoop-mapreduce/share/hadoop
+cd /usr/lib/hadoop-mapreduce/share/hadoop
+ln -s /usr/lib/hadoop-mapreduce mapreduce

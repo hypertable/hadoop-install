@@ -5,8 +5,11 @@ if [ $# -eq 0 ] ; then
     exit 0
 fi
 
+su -s /bin/bash hdfs -c "hadoop fs -mkdir -p /user"
+su -s /bin/bash hdfs -c "hadoop fs -chmod 777 /user"
+
 while [ $# -gt 0 ] ; do
-  su -s /bin/bash hdfs -c "hadoop fs -mkdir -p /user/$1"
+  su -s /bin/bash hdfs -c "hadoop fs -mkdir /user/$1"
   su -s /bin/bash hdfs -c "hadoop fs -chown $1 /user/$1"
   shift
 done

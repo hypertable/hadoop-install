@@ -19,3 +19,5 @@ cp -r ${BASE_DIR}/conf.${SOURCE_MACHINE} /etc/hadoop/
 alternatives --verbose --install /etc/hadoop/conf hadoop-conf /etc/hadoop/conf.${SOURCE_MACHINE} 50
 alternatives --set hadoop-conf /etc/hadoop/conf.${SOURCE_MACHINE}
 alternatives --display hadoop-conf
+
+yum -y install pig

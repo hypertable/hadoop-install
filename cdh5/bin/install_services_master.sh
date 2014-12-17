@@ -5,17 +5,16 @@ if [ $# -eq 0 ] ; then
     exit 0
 fi
 
+yum -y install hadoop-yarn-resourcemanager hadoop-hdfs-namenode
+
 NAMENODE_DIRS=
 while [ $# -gt 0 ] ; do
     NAMENODE_DIRS="${NAMENODE_DIRS} $1/dfs/nn"
     shift
 done
-
 mkdir -p ${NAMENODE_DIRS}
 chmod 700 ${NAMENODE_DIRS}
 chown -R hdfs:hdfs ${NAMENODE_DIRS}
-
-yum -y install hadoop-yarn-resourcemanager hadoop-hdfs-namenode
 
 mkdir -p /usr/lib/hadoop/share/hadoop
 cd /usr/lib/hadoop/share/hadoop/

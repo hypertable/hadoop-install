@@ -5,6 +5,8 @@ if [ $# -eq 0 ] ; then
     exit 0
 fi
 
+yum -y install hadoop-yarn-nodemanager hadoop-hdfs-datanode hadoop-mapreduce
+
 MAPRED_DIRS=
 DATANODE_DIRS=
 while [ $# -gt 0 ] ; do
@@ -20,8 +22,6 @@ chown -R mapred:hadoop ${MAPRED_DIRS}
 mkdir -p ${DATANODE_DIRS}
 chmod 700 ${DATANODE_DIRS}
 chown -R hdfs:hdfs ${DATANODE_DIRS}
-
-yum -y install hadoop-yarn-nodemanager hadoop-hdfs-datanode hadoop-mapreduce
 
 mkdir -p /usr/lib/hadoop/share/hadoop
 cd /usr/lib/hadoop/share/hadoop/

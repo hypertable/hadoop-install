@@ -6,9 +6,8 @@ if [ $# -eq 0 ] ; then
 fi
 
 NAMENODE_DIRS=
-while [ $# -gt 0 ] ; do
-    NAMENODE_DIRS="${NAMENODE_DIRS} $1/dfs/nn"
-    shift
+for arg in "$@"; do
+    NAMENODE_DIRS="${NAMENODE_DIRS} ${arg}/dfs/nn"
 done
 
 mkdir -p ${NAMENODE_DIRS}

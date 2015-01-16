@@ -5,8 +5,7 @@ if [ $# -eq 0 ] ; then
     exit 0
 fi
 
-while [ $# -gt 0 ] ; do
-  su -s /bin/bash hdfs -c "hadoop fs -mkdir /user/$1"
-  su -s /bin/bash hdfs -c "hadoop fs -chown $1 /user/$1"
-  shift
+for arg in "$@"; do
+  su -s /bin/bash hdfs -c "hadoop fs -mkdir /user/${arg}"
+  su -s /bin/bash hdfs -c "hadoop fs -chown ${arg} /user/${arg}"
 done

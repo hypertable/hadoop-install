@@ -8,10 +8,10 @@ fi
 yum -y install hadoop-yarn-resourcemanager hadoop-hdfs-namenode
 
 NAMENODE_DIRS=
-while [ $# -gt 0 ] ; do
-    NAMENODE_DIRS="${NAMENODE_DIRS} $1/dfs/nn"
-    shift
+for arg in "$@"; do
+    NAMENODE_DIRS="${NAMENODE_DIRS} ${arg}/dfs/nn"
 done
+
 mkdir -p ${NAMENODE_DIRS}
 chmod 700 ${NAMENODE_DIRS}
 chown -R hdfs:hdfs ${NAMENODE_DIRS}

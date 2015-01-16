@@ -24,7 +24,7 @@ task: install_services_slave roles: slave {
     dirs="${dirs} ${dir}"
   done
   ssh: {
-    ${SOURCE}/${DISTRO}/bin/install_services_slave.sh "${dirs}"
+    ${SOURCE}/${DISTRO}/bin/install_services_slave.sh ${dirs}
   }
 }
 
@@ -91,7 +91,7 @@ task: initialize_system_dirs roles: master {
 # Create HDFS user directories.
 task: create_hdfs_user_dirs roles: master {
   ssh: {
-    ${SOURCE}/${DISTRO}/bin/create_hdfs_user_dirs.sh "${USERS[@]}"
+    ${SOURCE}/${DISTRO}/bin/create_hdfs_user_dirs.sh ${USERS[@]}
   }
 }
 

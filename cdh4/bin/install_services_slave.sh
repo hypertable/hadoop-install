@@ -7,10 +7,9 @@ fi
 
 MAPRED_DIRS=
 DATANODE_DIRS=
-while [ $# -gt 0 ] ; do
-    MAPRED_DIRS="${MAPRED_DIRS} $1/mapred/local"
-    DATANODE_DIRS="${DATANODE_DIRS} $1/dfs/dn"
-    shift
+for arg in "$@"; do
+    MAPRED_DIRS="${MAPRED_DIRS} ${arg}/mapred/local"
+    DATANODE_DIRS="${DATANODE_DIRS} ${arg}/dfs/dn"
 done
 
 mkdir -p ${MAPRED_DIRS}
